@@ -1,9 +1,11 @@
 package util
 
 import (
-	"github.com/gookit/goutil/strutil"
 	"regexp"
 	"strings"
+	"unicode"
+
+	"github.com/gookit/goutil/strutil"
 )
 
 // IsTrue 判断字符串是否是正确
@@ -49,17 +51,28 @@ func formatOptions(options []string) []string {
 	return formattedOptions
 }
 
+func removeSpaces(s string) string {
+	// 使用 strings.Map 去除所有空格字符
+	return strings.Map(func(r rune) rune {
+		if unicode.IsSpace(r) {
+			return -1 // -1 表示删除该字符
+		}
+		return r
+	}, s)
+}
+
 // FormatString 格式化字符串
 func FormatString(src string) string {
 	// 全角转半角
-	src = FullWidthStrToHalfWidthStr(src)
+	//src = FullWidthStrToHalfWidthStr(src)
 	// 中文常见符号转英文
-	src = strings.ReplaceAll(src, "“", `"`)
-	src = strings.ReplaceAll(src, "”", `"`)
-	src = strings.ReplaceAll(src, "‘", "'")
-	src = strings.ReplaceAll(src, "’", "'")
-	src = strings.ReplaceAll(src, "。", ".")
+	// src = strings.ReplaceAll(src, "“", `"`)
+	// src = strings.ReplaceAll(src, "”", `"`)
+	// src = strings.ReplaceAll(src, "‘", "'")
+	// src = strings.ReplaceAll(src, "’", "'")
+	// src = strings.ReplaceAll(src, "。", ".")
 	src = strings.ReplaceAll(src, "&nbsp;", " ")
+	src = removeSpaces(src)
 
 	// 去除末尾的常见字符
 	src = strings.TrimRightFunc(src, func(r rune) bool {

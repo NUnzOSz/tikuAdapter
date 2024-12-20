@@ -1,8 +1,9 @@
 package configs
 
 import (
+	"tikuAdapter/internal/search"
+
 	"github.com/elastic/go-elasticsearch/v8"
-	"github.com/itihey/tikuAdapter/internal/search"
 )
 
 // Config 所有的配置文件

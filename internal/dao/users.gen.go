@@ -16,7 +16,7 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"github.com/itihey/tikuAdapter/internal/entity"
+	"tikuAdapter/internal/entity"
 )
 
 func newUser(db *gorm.DB, opts ...gen.DOOption) user {

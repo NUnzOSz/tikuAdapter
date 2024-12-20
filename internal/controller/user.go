@@ -1,12 +1,13 @@
 package controller
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/itihey/tikuAdapter/internal/dao"
-	"github.com/itihey/tikuAdapter/internal/entity"
-	"github.com/itihey/tikuAdapter/pkg/logger"
-	"github.com/itihey/tikuAdapter/pkg/util"
 	"strconv"
+	"tikuAdapter/internal/dao"
+	"tikuAdapter/internal/entity"
+	"tikuAdapter/pkg/logger"
+	"tikuAdapter/pkg/util"
+
+	"github.com/gin-gonic/gin"
 )
 
 // Auth 鉴权

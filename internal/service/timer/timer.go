@@ -1,8 +1,9 @@
 package timer
 
 import (
-	"github.com/itihey/tikuAdapter/internal/registry/manager"
-	"github.com/itihey/tikuAdapter/internal/service"
+	"tikuAdapter/internal/registry/manager"
+	"tikuAdapter/internal/service"
+
 	"github.com/robfig/cron/v3"
 )
 

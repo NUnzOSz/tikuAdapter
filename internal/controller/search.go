@@ -2,17 +2,18 @@ package controller
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
-	"github.com/itihey/tikuAdapter/internal/middleware"
-	"github.com/itihey/tikuAdapter/internal/registry/manager"
-	"github.com/itihey/tikuAdapter/internal/search"
-	"github.com/itihey/tikuAdapter/pkg/global"
-	"github.com/itihey/tikuAdapter/pkg/logger"
-	"github.com/itihey/tikuAdapter/pkg/model"
-	"github.com/itihey/tikuAdapter/pkg/util"
 	"net/http"
 	"strings"
 	"sync"
+	"tikuAdapter/internal/middleware"
+	"tikuAdapter/internal/registry/manager"
+	"tikuAdapter/internal/search"
+	"tikuAdapter/pkg/global"
+	"tikuAdapter/pkg/logger"
+	"tikuAdapter/pkg/model"
+	"tikuAdapter/pkg/util"
+
+	"github.com/gin-gonic/gin"
 )
 
 // Search 搜题接口

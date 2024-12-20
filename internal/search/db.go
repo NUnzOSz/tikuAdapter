@@ -2,13 +2,18 @@ package search
 
 import (
 	"encoding/json"
-	"github.com/go-resty/resty/v2"
-	"github.com/gookit/goutil/strutil"
-	"github.com/itihey/tikuAdapter/internal/dao"
-	"github.com/itihey/tikuAdapter/pkg/model"
 	"log"
+
 	"sort"
 	"strconv"
+	"strings"
+	"unicode"
+
+	"tikuAdapter/internal/dao"
+	"tikuAdapter/pkg/model"
+
+	"github.com/go-resty/resty/v2"
+	"github.com/gookit/goutil/strutil"
 )
 
 // DB mysql 或者sqlite3
@@ -24,6 +29,16 @@ func (in *dBSearch) getHTTPClient() *resty.Client {
 	panic("implement me")
 }
 
+func removeSpaces(s string) string {
+	// 使用 strings.Map 去除所有空格字符
+	return strings.Map(func(r rune) rune {
+		if unicode.IsSpace(r) {
+			return -1 // -1 表示删除该字符
+		}
+		return r
+	}, s)
+}
+
 // SearchAnswer 搜索答案
 func (in *dBSearch) SearchAnswer(req model.SearchRequest) (answer [][]string, err error) {
 	answer = make([][]string, 0)
@@ -36,7 +51,15 @@ func (in *dBSearch) SearchAnswer(req model.SearchRequest) (answer [][]string, er
 		sortOptionsStr = []byte("[]")
 	}
 	// 生成hash值
-	Hash := strutil.Md5(req.Question + string(sortOptionsStr) + strconv.Itoa(req.Type) + strconv.Itoa(req.Plat))
+	req.Question = removeSpaces(req.Question)
+	log.Println(req.Question)
+	md5string := ""
+	if req.Type == 3 {
+		md5string = req.Question + string([]byte("[]")) + strconv.Itoa(req.Type) + strconv.Itoa(req.Plat)
+	} else {
+		md5string = req.Question + string(sortOptionsStr) + strconv.Itoa(req.Type) + strconv.Itoa(req.Plat)
+	}
+	Hash := strutil.Md5(md5string)
 	tiku := dao.Tiku
 	find, err := tiku.Where(tiku.Hash.Eq(Hash)).Find()
 	if err != nil {

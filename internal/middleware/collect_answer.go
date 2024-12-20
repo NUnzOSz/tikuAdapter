@@ -2,13 +2,14 @@ package middleware
 
 import (
 	"encoding/json"
-	"github.com/gookit/goutil/strutil"
-	"github.com/itihey/tikuAdapter/internal/dao"
-	"github.com/itihey/tikuAdapter/internal/entity"
-	"github.com/itihey/tikuAdapter/internal/registry/manager"
-	"github.com/itihey/tikuAdapter/pkg/model"
 	"sort"
 	"strconv"
+	"tikuAdapter/internal/dao"
+	"tikuAdapter/internal/entity"
+	"tikuAdapter/internal/registry/manager"
+	"tikuAdapter/pkg/model"
+
+	"github.com/gookit/goutil/strutil"
 )
 
 // FillHash 填充题库的hash值

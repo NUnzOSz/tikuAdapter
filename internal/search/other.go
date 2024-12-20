@@ -1,14 +1,15 @@
 package search
 
 import (
+	"strconv"
+	"strings"
+	"tikuAdapter/pkg/model"
+	"time"
+
 	"github.com/go-resty/resty/v2"
 	"github.com/gookit/goutil/jsonutil"
 	"github.com/gookit/goutil/strutil"
-	"github.com/itihey/tikuAdapter/pkg/model"
 	"github.com/tidwall/gjson"
-	"strconv"
-	"strings"
-	"time"
 )
 
 // KV -

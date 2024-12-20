@@ -1,14 +1,15 @@
 package controller
 
 import (
-	"code.sajari.com/docconv/v2"
 	"encoding/json"
-	"github.com/gin-gonic/gin"
-	"github.com/itihey/tikuAdapter/internal/service"
-	"github.com/itihey/tikuAdapter/pkg/global"
-	"github.com/xuri/excelize/v2"
 	"mime/multipart"
 	"net/http"
+	"tikuAdapter/internal/service"
+	"tikuAdapter/pkg/global"
+
+	"code.sajari.com/docconv/v2"
+	"github.com/gin-gonic/gin"
+	"github.com/xuri/excelize/v2"
 )
 
 // Parser 解析文件接口 支持解析docx和xlsx

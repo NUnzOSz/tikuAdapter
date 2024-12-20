@@ -2,11 +2,12 @@ package main
 
 import (
 	"embed"
+	"tikuAdapter/internal/api"
+	"tikuAdapter/internal/registry/manager"
+	"tikuAdapter/internal/service/timer"
+	"tikuAdapter/pkg/logger"
+
 	"github.com/gin-gonic/gin"
-	"github.com/itihey/tikuAdapter/internal/api"
-	"github.com/itihey/tikuAdapter/internal/registry/manager"
-	"github.com/itihey/tikuAdapter/internal/service/timer"
-	"github.com/itihey/tikuAdapter/pkg/logger"
 )
 
 //go:embed dist

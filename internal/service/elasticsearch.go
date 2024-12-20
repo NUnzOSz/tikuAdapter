@@ -4,10 +4,11 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"github.com/elastic/go-elasticsearch/v8"
-	"github.com/itihey/tikuAdapter/internal/dao"
-	"github.com/itihey/tikuAdapter/pkg/logger"
 	"strconv"
+	"tikuAdapter/internal/dao"
+	"tikuAdapter/pkg/logger"
+
+	"github.com/elastic/go-elasticsearch/v8"
 )
 
 // Elasticsearch Elasticsearch接口

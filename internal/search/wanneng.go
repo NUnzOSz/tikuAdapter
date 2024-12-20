@@ -3,13 +3,14 @@ package search
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/go-resty/resty/v2"
-	"github.com/itihey/tikuAdapter/pkg/errors"
-	"github.com/itihey/tikuAdapter/pkg/logger"
-	"github.com/itihey/tikuAdapter/pkg/model"
 	"strconv"
 	"strings"
+	"tikuAdapter/pkg/errors"
+	"tikuAdapter/pkg/logger"
+	"tikuAdapter/pkg/model"
 	"time"
+
+	"github.com/go-resty/resty/v2"
 )
 
 type result struct {

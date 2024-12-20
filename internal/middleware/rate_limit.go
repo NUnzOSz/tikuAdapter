@@ -1,9 +1,10 @@
 package middleware
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/itihey/tikuAdapter/internal/registry/manager"
 	"net/http"
+	"tikuAdapter/internal/registry/manager"
+
+	"github.com/gin-gonic/gin"
 )
 
 // GlobalAPIRateLimit 全局API限流

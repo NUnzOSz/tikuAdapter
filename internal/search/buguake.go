@@ -2,14 +2,15 @@ package search
 
 import (
 	"encoding/base64"
-	"github.com/antlabs/strsim"
-	"github.com/go-resty/resty/v2"
-	"github.com/itihey/tikuAdapter/pkg/errors"
-	"github.com/itihey/tikuAdapter/pkg/model"
-	"github.com/tidwall/gjson"
 	"net/url"
 	"strings"
+	"tikuAdapter/pkg/errors"
+	"tikuAdapter/pkg/model"
 	"time"
+
+	"github.com/antlabs/strsim"
+	"github.com/go-resty/resty/v2"
+	"github.com/tidwall/gjson"
 )
 
 // BuguakeClient 不挂科网页版题库

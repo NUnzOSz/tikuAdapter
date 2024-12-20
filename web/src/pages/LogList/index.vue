@@ -11,9 +11,6 @@
         <a-tag v-else-if="record.action == 2" color="red">
           删除
         </a-tag>
-        <a-tag v-else-if="record.action == 3" color="green">
-          查询
-        </a-tag>
       </template>
     </a-table>
   </a-card>
@@ -32,15 +29,15 @@ export default defineComponent({
       tabLoading,
       columns: [
         {
-          title: 'qid',
+          title: '被修改的qid',
           dataIndex: 'qid',
           key: 'qid',
         },
-        // {
-        //   title: '修改时间',
-        //   dataIndex: 'create_time',
-        //   key: 'create_time',
-        // },
+        {
+          title: '修改时间',
+          dataIndex: 'create_time',
+          key: 'create_time',
+        },
         {
           title: '改前答案',
           dataIndex: 'old_answer',

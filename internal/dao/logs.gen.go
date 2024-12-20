@@ -16,7 +16,7 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"github.com/itihey/tikuAdapter/internal/entity"
+	"tikuAdapter/internal/entity"
 )
 
 func newLog(db *gorm.DB, opts ...gen.DOOption) log {

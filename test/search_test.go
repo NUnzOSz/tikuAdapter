@@ -3,10 +3,10 @@ package test
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/itihey/tikuAdapter/internal/search"
-	"github.com/itihey/tikuAdapter/pkg/model"
 	"os"
 	"testing"
+	"tikuAdapter/internal/search"
+	"tikuAdapter/pkg/model"
 )
 
 func TestSearchIcodefClient_SearchAnswer(t *testing.T) {

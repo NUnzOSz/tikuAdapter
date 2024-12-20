@@ -16,7 +16,7 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"github.com/itihey/tikuAdapter/internal/entity"
+	"tikuAdapter/internal/entity"
 )
 
 func newTiku(db *gorm.DB, opts ...gen.DOOption) tiku {

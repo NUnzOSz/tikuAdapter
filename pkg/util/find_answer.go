@@ -1,10 +1,11 @@
 package util
 
 import (
+	"strings"
+	"tikuAdapter/pkg/model"
+
 	"github.com/antlabs/strsim"
 	"github.com/gookit/goutil/arrutil"
-	"github.com/itihey/tikuAdapter/pkg/model"
-	"strings"
 )
 
 var sep = "**=====^_^======^_^======**" // 用于分割答案的分隔符

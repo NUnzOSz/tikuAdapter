@@ -1,8 +1,9 @@
 package search
 
 import (
+	"tikuAdapter/pkg/model"
+
 	"github.com/go-resty/resty/v2"
-	"github.com/itihey/tikuAdapter/pkg/model"
 )
 
 // Search 搜题接口

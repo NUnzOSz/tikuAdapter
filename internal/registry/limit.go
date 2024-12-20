@@ -1,8 +1,9 @@
 package registry
 
 import (
-	"github.com/itihey/tikuAdapter/configs"
-	"github.com/itihey/tikuAdapter/pkg/ratelimit"
+	"tikuAdapter/configs"
+	"tikuAdapter/pkg/ratelimit"
+
 	"golang.org/x/time/rate"
 )
 

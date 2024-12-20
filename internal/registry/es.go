@@ -1,8 +1,8 @@
 package registry
 
 import (
-	"github.com/itihey/tikuAdapter/configs"
-	"github.com/itihey/tikuAdapter/internal/service"
+	"tikuAdapter/configs"
+	"tikuAdapter/internal/service"
 )
 
 // RegisterEs 注册配置文件

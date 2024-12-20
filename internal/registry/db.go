@@ -2,17 +2,19 @@ package registry
 
 import (
 	"fmt"
-	"github.com/itihey/tikuAdapter/configs"
-	"github.com/itihey/tikuAdapter/internal/dao"
+	"os"
+	"tikuAdapter/configs"
+	"tikuAdapter/internal/dao"
+
 	"gorm.io/driver/mysql"
 	l "gorm.io/gorm/logger"
-	"os"
+
+	"sync"
+	"tikuAdapter/internal/entity"
+	"tikuAdapter/pkg/logger"
 
 	"github.com/glebarez/sqlite"
-	"github.com/itihey/tikuAdapter/internal/entity"
-	"github.com/itihey/tikuAdapter/pkg/logger"
 	"gorm.io/gorm"
-	"sync"
 )
 
 var dbName = "tiku.db"

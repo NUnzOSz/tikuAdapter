@@ -3,9 +3,10 @@ package util
 import (
 	"crypto/rand"
 	"errors"
-	"github.com/golang-jwt/jwt/v5"
-	"github.com/itihey/tikuAdapter/pkg/logger"
 	"strconv"
+	"tikuAdapter/pkg/logger"
+
+	"github.com/golang-jwt/jwt/v5"
 )
 
 var jwtKey []byte

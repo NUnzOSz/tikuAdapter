@@ -70,7 +70,7 @@
       <div class="tabs">
         <span v-for="(i, index) in problemArr" :key="index" @click="() => { type = i.typeAlias }"
           :class="type === i.typeAlias ? 'active tabsBtn' : 'tabsBtn'">
-          {{ i.typeAlias || '其他' }}({{ i.paperList.length }})
+          {{ i.typeAlias }}({{ i.paperList.length }})
         </span>
       </div>
       <a-spin :spinning="loading">
@@ -101,7 +101,7 @@
   </main>
   <footer>
     <a-space>
-      <a-button type="primary" @click="upload" :loading="submitLoading">确认导入</a-button>
+      <a-button type="primary" @click="upload">确认导入</a-button>
       <a-button @click="navigateToHome">返回</a-button>
     </a-space>
   </footer>
@@ -125,7 +125,6 @@ const showProblemArr = ref([]);
 const loading = ref(false);
 const data = ref([])
 const type = ref('全部')
-const submitLoading = ref(false)
 
 export default defineComponent({
   name: 'IntelligentImport',
@@ -144,8 +143,7 @@ export default defineComponent({
       loading,
       data,
       type,
-      navigateToHome,
-      submitLoading
+      navigateToHome
     };
   },
   methods: {
@@ -155,7 +153,21 @@ export default defineComponent({
         file: UploadId.value
       })
       const { paper } = res
-      if (paper.length > 0) {
+      // 遍历paper数组，从第二项（索引1）开始
+      for (let i = 1; i < paper.length; i++) {
+        // 检查当前项是否有content属性
+        if (paper[i] && paper[i].content) {
+          // 使用字符串的replace方法和正则表达式来替换&nbsp;为空格
+          paper[i].content = paper[i].content.replace(/&nbsp;/g, ' ').replace(/\s+/g, '').replace(/<br>/g, '');
+        }
+        if(paper[i] && paper[i].answer?.length==1){
+          // console.log(paper[i].answer)
+          let arr = paper[i].answer[0].split('<br>')
+          paper[i].answer = arr
+        }
+      }
+      //console.log(paper,res)
+      if (paper?.length > 0) {
         this.processPaperData(paper);
         data.value = paper;
         loading.value = false;
@@ -174,13 +186,42 @@ export default defineComponent({
         html: val
       })
       const { paper } = res
-      if (paper.length > 0) {
+      // 遍历paper数组，从第二项（索引1）开始
+      for (let i = 1; i < paper.length; i++) {
+        // 检查当前项是否有content属性
+        if (paper[i] && paper[i].content) {
+          // 使用字符串的replace方法和正则表达式来替换&nbsp;为空格
+          paper[i].content = paper[i].content.replace(/&nbsp;/g, ' ').replace(/\s+/g, '').replace(/<br>/g, '');
+        }
+        if(paper[i] && paper[i].answer?.length==1){
+          // console.log(paper[i].answer)
+          let arr = paper[i].answer[0].split('<br>')
+          paper[i].answer = arr
+        }
+      }
+      //console.log(paper,res)
+      if (paper?.length > 0) {
         this.processPaperData(paper);
         data.value = paper;
         loading.value = false;
       } else {
         loading.value = false;
       }
+    },
+    convertToEnglishPunctuation(text) {
+      const chineseToEnglishMap = {
+        '，': ',',
+        '。': '.',
+        '！': '!',
+        '？': '?',
+        '：': ':',
+        '；': ';',
+        // 可以继续添加其他中文标点符号的映射
+      };
+
+      return text.split('').map(char => {
+        return chineseToEnglishMap[char] || char; // 如果字符在映射中不存在，则返回原字符
+      }).join('');
     },
     processPaperData(paper) {
       showProblemArr.value = paper;
@@ -228,13 +269,17 @@ export default defineComponent({
           question: item.content,
           type: getQuestionTypeByName(item.typeAlias),
         }
+
         if (item.options) {
           data.options = item.options.map(i => {
             return i.value
           })
+        }else{
+          data.options=[];
         }
+
         if (item.answer) {
-          if (data?.options && data.options.length > 0) {
+          if (data.options.length > 0) {
             data.answer = JSON.stringify(item.answer.map(i => {
               return data.options[i.charCodeAt(0) - 65]
             }))
@@ -245,13 +290,9 @@ export default defineComponent({
         data.options = JSON.stringify(data.options)
         return data
       }).filter(i => i.answer && i.answer.length > 0)
-      submitLoading.value = true
+      console.log(JSON.stringify(result))
       createQuestions(result).then(res => {
         message.success(res.message);
-        submitLoading.value = false
-      }).catch(err => {
-        submitLoading.value = false
-        message.error(err.message)
       })
     }
   }

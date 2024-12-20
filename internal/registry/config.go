@@ -3,8 +3,9 @@ package registry
 import (
 	"bytes"
 	"fmt"
-	"github.com/itihey/tikuAdapter/configs"
-	"github.com/itihey/tikuAdapter/pkg/logger"
+	"tikuAdapter/configs"
+	"tikuAdapter/pkg/logger"
+
 	"github.com/spf13/viper"
 )
 

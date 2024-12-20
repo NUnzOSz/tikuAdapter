@@ -1,12 +1,13 @@
 package manager
 
 import (
+	"tikuAdapter/configs"
+	"tikuAdapter/internal/registry"
+	"tikuAdapter/internal/service"
+	"tikuAdapter/pkg/logger"
+	"tikuAdapter/pkg/ratelimit"
+
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
-	"github.com/itihey/tikuAdapter/configs"
-	"github.com/itihey/tikuAdapter/internal/registry"
-	"github.com/itihey/tikuAdapter/internal/service"
-	"github.com/itihey/tikuAdapter/pkg/logger"
-	"github.com/itihey/tikuAdapter/pkg/ratelimit"
 	"gorm.io/gorm"
 )
 

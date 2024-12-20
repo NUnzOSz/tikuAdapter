@@ -2,11 +2,12 @@ package search
 
 import (
 	"encoding/json"
-	"github.com/go-resty/resty/v2"
-	"github.com/itihey/tikuAdapter/pkg/errors"
-	"github.com/itihey/tikuAdapter/pkg/model"
-	"github.com/itihey/tikuAdapter/pkg/util"
+	"tikuAdapter/pkg/errors"
+	"tikuAdapter/pkg/model"
+	"tikuAdapter/pkg/util"
 	"time"
+
+	"github.com/go-resty/resty/v2"
 )
 
 type question struct {

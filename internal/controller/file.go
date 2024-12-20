@@ -4,11 +4,12 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"fmt"
-	"github.com/gin-gonic/gin"
-	"github.com/itihey/tikuAdapter/internal/registry/manager"
-	"github.com/itihey/tikuAdapter/pkg/global"
 	"io"
 	"net/http"
+	"tikuAdapter/internal/registry/manager"
+	"tikuAdapter/pkg/global"
+
+	"github.com/gin-gonic/gin"
 )
 
 // Plat -
