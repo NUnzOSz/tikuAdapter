@@ -3,10 +3,7 @@ package controller
 import (
 	"fmt"
 	"net/http"
-	"strings"
-	"sync"
 	"tikuAdapter/internal/middleware"
-	"tikuAdapter/internal/registry/manager"
 	"tikuAdapter/internal/search"
 	"tikuAdapter/pkg/global"
 	"tikuAdapter/pkg/logger"
@@ -25,67 +22,67 @@ func Search(c *gin.Context) {
 		return
 	}
 
-	var result [][]string                          // 最后所有的答案的二维数组
-	var localAnswer [][]string                     // 本地答案
-	if strings.Contains(c.Query("use"), "local") { // 使用本地题库的话
-		localAnswer, err = search.GetDBSearch().SearchAnswer(req)
-		if err != nil {
-			logger.SysError(fmt.Sprintf("查询本地答案出错：%s", err.Error()))
-		}
-		result = append(result, localAnswer...)
+	var result [][]string      // 最后所有的答案的二维数组
+	var localAnswer [][]string // 本地答案
+	//if strings.Contains(c.Query("use"), "local") { // 使用本地题库的话
+	localAnswer, err = search.GetDBSearch().SearchAnswer(req)
+	if err != nil {
+		logger.SysError(fmt.Sprintf("查询本地答案出错：%s", err.Error()))
 	}
+	result = append(result, localAnswer...)
+	//}
 
 	// 再查询第三方
-	if len(result) == 0 {
-		var clients = []search.Search{
-			&search.BuguakeClient{
-				Enable: strings.Contains(c.Query("use"), "buguake") || c.Query("use") == "",
-			},
-			&search.IcodefClient{
-				Token:  c.Query("icodefToken"),
-				Enable: strings.Contains(c.Query("use"), "icodef") || c.Query("use") == "",
-			},
-			&search.WannengClient{
-				Token:  c.Query("wannengToken"),
-				Enable: strings.Contains(c.Query("use"), "wanneng") || c.Query("use") == "",
-			},
-			&search.EnncyClient{
-				Token:  c.Query("enncyToken"),
-				Enable: strings.Contains(c.Query("use"), "enncy"),
-			},
-			&search.AidianClient{
-				Enable: strings.Contains(c.Query("use"), "aidian"),
-				YToken: c.Query("aidianYToken"),
-			},
-			&search.LemonClient{
-				Enable: strings.Contains(c.Query("use"), "lemon"),
-				Token:  c.Query("lemonToken"),
-			},
-		}
-		cfg := manager.GetManager().GetConfig()
-		for _, api := range cfg.API {
-			if strings.Contains(c.Query("use"), api.Name) {
-				clients = append(clients, api)
-			}
-		}
+	// if len(result) == 0 {
+	// 	var clients = []search.Search{
+	// 		&search.BuguakeClient{
+	// 			Enable: strings.Contains(c.Query("use"), "buguake") || c.Query("use") == "",
+	// 		},
+	// 		&search.IcodefClient{
+	// 			Token:  c.Query("icodefToken"),
+	// 			Enable: strings.Contains(c.Query("use"), "icodef") || c.Query("use") == "",
+	// 		},
+	// 		&search.WannengClient{
+	// 			Token:  c.Query("wannengToken"),
+	// 			Enable: strings.Contains(c.Query("use"), "wanneng") || c.Query("use") == "",
+	// 		},
+	// 		&search.EnncyClient{
+	// 			Token:  c.Query("enncyToken"),
+	// 			Enable: strings.Contains(c.Query("use"), "enncy"),
+	// 		},
+	// 		&search.AidianClient{
+	// 			Enable: strings.Contains(c.Query("use"), "aidian"),
+	// 			YToken: c.Query("aidianYToken"),
+	// 		},
+	// 		&search.LemonClient{
+	// 			Enable: strings.Contains(c.Query("use"), "lemon"),
+	// 			Token:  c.Query("lemonToken"),
+	// 		},
+	// 	}
+	// cfg := manager.GetManager().GetConfig()
+	// for _, api := range cfg.API {
+	// 	if strings.Contains(c.Query("use"), api.Name) {
+	// 		clients = append(clients, api)
+	// 	}
+	// }
 
-		var wg sync.WaitGroup
-		var mu sync.Mutex
+	// var wg sync.WaitGroup
+	// var mu sync.Mutex
 
-		for i := range clients {
-			wg.Add(1)
-			go func(idx int) {
-				defer wg.Done()
-				res, err := clients[idx].SearchAnswer(req)
-				if err == nil && len(res) > 0 {
-					mu.Lock()
-					defer mu.Unlock()
-					result = append(result, res...)
-				}
-			}(i)
-		}
-		wg.Wait()
-	}
+	// for i := range clients {
+	// 	wg.Add(1)
+	// 	go func(idx int) {
+	// 		defer wg.Done()
+	// 		res, err := clients[idx].SearchAnswer(req)
+	// 		if err == nil && len(res) > 0 {
+	// 			mu.Lock()
+	// 			defer mu.Unlock()
+	// 			result = append(result, res...)
+	// 		}
+	// 	}(i)
+	// }
+	// wg.Wait()
+	// }
 
 	resp := util.FillAnswerResponse(result, &req)
 

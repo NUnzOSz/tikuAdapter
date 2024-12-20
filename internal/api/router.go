@@ -21,22 +21,22 @@ func SetAPIRouter(router *gin.Engine) {
 
 	apiRouter.Use(middleware.GlobalAPIRateLimit) // 全局限流
 
-	apiRouter.POST("/upload", controller.UploadFile)
-	apiRouter.GET("/plat", controller.Plat)
+	//apiRouter.POST("/upload", controller.UploadFile)
+	//apiRouter.GET("/plat", controller.Plat)
 
 	apiRouter.POST("/search", controller.Search)
-	apiRouter.POST("/parser", controller.Parser)
+	//apiRouter.POST("/parser", controller.Parser)
 
-	apiRouter.GET("/courses", controller.Courses)
-	apiRouter.POST("/questions/search", controller.GetQuestions)
-	apiRouter.POST("/questions", controller.CreateQuestion)
-	apiRouter.PUT("/questions/:id", controller.UpdateQuestions)
-	apiRouter.DELETE("/questions/:id", controller.DeleteQuestion)
+	//apiRouter.GET("/courses", controller.Courses)
+	//apiRouter.POST("/questions/search", controller.GetQuestions)
+	//apiRouter.POST("/questions", controller.CreateQuestion)
+	//apiRouter.PUT("/questions/:id", controller.UpdateQuestions)
+	//apiRouter.DELETE("/questions/:id", controller.DeleteQuestion)
 
-	apiRouter.GET("/user/login", controller.UserLogin)                    // 登录接口
-	apiRouter.GET("/user", controller.Auth, controller.UserList)          // 自己创建的用户列表
-	apiRouter.POST("/user", controller.Auth, controller.CreateUser)       // 创建用户
-	apiRouter.DELETE("/user/:id", controller.Auth, controller.DeleteUser) // 删除用户
+	//apiRouter.GET("/user/login", controller.UserLogin)                    // 登录接口
+	//apiRouter.GET("/user", controller.Auth, controller.UserList)          // 自己创建的用户列表
+	//apiRouter.POST("/user", controller.Auth, controller.CreateUser)       // 创建用户
+	//apiRouter.DELETE("/user/:id", controller.Auth, controller.DeleteUser) // 删除用户
 
 	apiRouter.GET("/logs", controller.LogList) // 删除用户
 

@@ -7,6 +7,8 @@ import (
 	"tikuAdapter/internal/service/timer"
 	"tikuAdapter/pkg/logger"
 
+	"github.com/getlantern/systray"
+	"github.com/getlantern/systray/example/icon"
 	"github.com/gin-gonic/gin"
 )
 
@@ -17,6 +19,7 @@ var buildFS embed.FS
 var indexPage []byte
 
 func main() {
+
 	mg, err := manager.CreateManager()
 	if err != nil {
 		logger.FatalLog(err)
@@ -28,12 +31,30 @@ func main() {
 		}
 	}(mg)
 
-	server := gin.Default()
-	api.SetAPIRouter(server)
-	api.SetWebRouter(buildFS, indexPage, server)
-	timer.StartTimer()
-	err = server.Run("0.0.0.0:8060")
-	if err != nil {
-		logger.FatalLog(err)
-	}
+	go func() {
+		server := gin.Default()
+		api.SetAPIRouter(server)
+		// Uncomment the following line if you need to serve web content
+		api.SetWebRouter(buildFS, indexPage, server)
+		timer.StartTimer()
+		if err := server.Run("0.0.0.0:8060"); err != nil {
+			logger.FatalLog(err)
+		}
+	}()
+
+	systray.Run(func() {
+		// Load your tray icon here (you need to provide the icon data)
+		// var iconData []byte // This should be the raw data of your icon
+		systray.SetIcon(icon.Data)
+		systray.SetTemplateIcon(icon.Data, icon.Data)
+
+		// For simplicity, we'll omit loading the icon in this example
+		quit := systray.AddMenuItem("Quit", "Quit the application")
+		go func() {
+			<-quit.ClickedCh
+			systray.Quit()
+		}()
+	}, func() {
+		// Cleanup code (if any)
+	})
 }
