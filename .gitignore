@@ -6,3 +6,5 @@
 /web/dist
 /web/.gitignore
 /cmd/adapter-service/dist/
+tikuAdapter.exe
+cmd/adapter-service/dist/index.html
