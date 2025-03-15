@@ -1,10 +1,8 @@
 package util
 
 import (
-	"math/rand"
 	"strings"
 	"tikuAdapter/pkg/model"
-	"time"
 
 	"github.com/antlabs/strsim"
 	"github.com/gookit/goutil/arrutil"
@@ -23,21 +21,8 @@ func FillAnswerResponse(answers [][]string, req *model.SearchRequest) model.Sear
 		Type:     req.Type,
 		Plat:     req.Plat,
 		Answer: model.Answer{
-			AllAnswer:   answers,
-			AnswerIndex: []int{},
-			AnswerKey:   []string{},
-			BestAnswer:  []string{},
+			AllAnswer: answers,
 		},
-	}
-
-	// 简答题一般只需要随机返回一个即可
-	if (req.Type == 4 || req.Type == -4) && len(answers) > 0 {
-		rand.Seed(time.Now().UnixNano())
-		randomIndex := rand.Intn(len(answers[0]))
-		ans := answers[0][randomIndex]
-		resp.Answer.AllAnswer = [][]string{{ans}}
-		resp.Answer.BestAnswer = []string{ans}
-		return resp
 	}
 
 	if req.Options == nil || len(req.Options) == 0 { // 用户没有传选项，那么只能返回出现次数最多的答案。
