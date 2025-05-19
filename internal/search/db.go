@@ -31,8 +31,9 @@ func (in *dBSearch) getHTTPClient() *resty.Client {
 
 func removeSpaces(s string) string {
 	// 使用 strings.Map 去除所有空格字符
+	//在判断条件中增加 unicode.IsPunct(r) ，这会匹配所有 Unicode 标点符号（包括中英文）
 	return strings.Map(func(r rune) rune {
-		if unicode.IsSpace(r) {
+		if unicode.IsSpace(r) || unicode.IsPunct(r) {
 			return -1 // -1 表示删除该字符
 		}
 		return r
@@ -54,7 +55,7 @@ func (in *dBSearch) SearchAnswer(req model.SearchRequest) (answer [][]string, er
 	req.Question = removeSpaces(req.Question)
 	log.Println(req.Question)
 	md5string := ""
-	if req.Type == 3 {
+	if req.Type == 3 || req.Type == 2 {
 		md5string = req.Question + string([]byte("[]")) + strconv.Itoa(req.Type) + strconv.Itoa(req.Plat)
 	} else {
 		md5string = req.Question + string(sortOptionsStr) + strconv.Itoa(req.Type) + strconv.Itoa(req.Plat)

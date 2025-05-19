@@ -4,13 +4,27 @@ import (
 	"encoding/json"
 	"sort"
 	"strconv"
+	"strings"
 	"tikuAdapter/internal/dao"
 	"tikuAdapter/internal/entity"
 	"tikuAdapter/internal/registry/manager"
 	"tikuAdapter/pkg/model"
+	"unicode"
 
 	"github.com/gookit/goutil/strutil"
 )
+
+func removeSpaces(s string) string {
+	// 先处理原始字符串去除空格和标点
+	cleaned := strings.Map(func(r rune) rune {
+		if unicode.IsSpace(r) || unicode.IsPunct(r) {
+			return -1
+		}
+		return r
+	}, s)
+
+	return strings.Trim(cleaned, "A对B错")
+}
 
 // FillHash 填充题库的hash值
 func FillHash(t *entity.Tiku) {
@@ -32,6 +46,7 @@ func FillHash(t *entity.Tiku) {
 		sortOptionsStr = []byte("[]")
 	}
 
+	t.Question = removeSpaces(t.Question)
 	t.Hash = strutil.Md5(t.Question + string(sortOptionsStr) + strconv.Itoa(int(t.Type)) + strconv.Itoa(int(t.Plat)))
 }
 
