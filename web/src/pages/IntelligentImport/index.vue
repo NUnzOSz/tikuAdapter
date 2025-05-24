@@ -153,16 +153,16 @@ export default defineComponent({
         file: UploadId.value
       })
       const { paper } = res
-      // 遍历paper数组，从第二项（索引1）开始
-      for (let i = 1; i < paper.length; i++) {
+      // 遍历paper数组，从第一项（索引0）开始
+      for (let i = 0; i < paper.length; i++) {
         // 检查当前项是否有content属性
         if (paper[i] && paper[i].content) {
           // 使用字符串的replace方法和正则表达式来替换&nbsp;为空格
-          paper[i].content = paper[i].content.replace(/&nbsp;/g, ' ').replace(/\s+/g, '').replace(/<br>/g, '');
+          paper[i].content = paper[i].content.replace(/&nbsp;/g, ' ').replace(/\s+/g, '').replace(/<br>/g, '').replace(new RegExp('\\' + 'A.对B.错' + '+$', 'g'), '');
         }
-        if(paper[i] && paper[i].answer?.length==1){
+        if (paper[i] && paper[i].answer?.length == 1) {
           // console.log(paper[i].answer)
-          let arr = paper[i].answer[0].split('<br>')
+          let arr = paper[i].answer[0].split('<br>').map(a => a.replace(/[（(]\d+[）)]/g, '')); // 新增替换序号
           paper[i].answer = arr
         }
       }
@@ -186,16 +186,16 @@ export default defineComponent({
         html: val
       })
       const { paper } = res
-      // 遍历paper数组，从第二项（索引1）开始
-      for (let i = 1; i < paper.length; i++) {
+      // 遍历paper数组，从第一项（索引0）开始
+      for (let i = 0; i < paper.length; i++) {
         // 检查当前项是否有content属性
         if (paper[i] && paper[i].content) {
           // 使用字符串的replace方法和正则表达式来替换&nbsp;为空格
-          paper[i].content = paper[i].content.replace(/&nbsp;/g, ' ').replace(/\s+/g, '').replace(/<br>/g, '');
+          paper[i].content = paper[i].content.replace(/&nbsp;/g, ' ').replace(/\s+/g, '').replace(/<br>/g, '').replace(new RegExp('\\' + 'A.对B.错' + '+$', 'g'), '');
         }
-        if(paper[i] && paper[i].answer?.length==1){
+        if (paper[i] && paper[i].answer?.length == 1) {
           // console.log(paper[i].answer)
-          let arr = paper[i].answer[0].split('<br>')
+          let arr = paper[i].answer[0].split('<br>').map(a => a.replace(/[（(]\d+[）)]/g, '')); // 新增替换序号
           paper[i].answer = arr
         }
       }
@@ -274,8 +274,8 @@ export default defineComponent({
           data.options = item.options.map(i => {
             return i.value
           })
-        }else{
-          data.options=[];
+        } else {
+          data.options = [];
         }
 
         if (item.answer) {
